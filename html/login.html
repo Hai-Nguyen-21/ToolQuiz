@@ -1,0 +1,34 @@
+<div class="container border-0 bg-white p-5">
+    <div class="row">
+        <div class="col pb-5">
+            <h2 class="card-header-title">Đăng nhập</h2>
+            <p>Vui lòng nhập tài khoản mật khẩu</p>
+        </div>
+        <form action="" name="formLogin" method="post">
+            <div class="form-group pb-4">
+                <input class="form-control fs-5" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Username" 
+                        type="text"
+                        ng-model="username"
+                        required>
+                <code class="form-message"></code>
+            </div>
+            <div class="form-group pb-4">
+                <input class="form-control fs-5" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Password" 
+                        type="password"
+                        ng-model="password"
+                        required>
+                <code class="form-message"></code>
+            </div>
+            <div class="form-group pt-3 text-center">
+                <a ng-click="login()" type="submit" class="btn-primary text-decoration-none fw-bold text-white fs-5 p-3 rounded-pill w-50 form-submit">Login</a>
+            </div>
+            <p class="fs-6 text-center pt-5">Not a member? <a href="#!register">Register</a></p>
+        </form>
+    </div>
+</div>

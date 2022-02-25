@@ -1,0 +1,42 @@
+<section ng-hide="st" class="rounded-lg mb-4" style="background-image: url(images/H4tz.gif); background-repeat: no-repeat;background-position: center; background-size: cover;">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="row">
+
+            <blockquote class="col-md-12 col-lg-4 offset-lg-1 text-lg-left text-white mt-5 mt-md-0 blockquote">
+                <h1 class="intro-title fw-bold mt-sm-5 mt-0 mb-4 wow fadeInLeft" data-wow-delay="0.3s">Trang thi trắc nghiệm trực tuyến</h1>
+                <h6 class="mb-4 wow fadeInLeft" data-wow-delay="0.3s">Để bắt đầu bài thi bạn vui lòng đăng nhập hoặc đăng kí.</h6>
+                <a href="#!login" type="button" class="btn btn-light text-dark fw-bold ml-lg-0 wow fadeInLeft" data-wow-delay="0.4s">Đăng nhập</a>
+                <a href="#!register" class="btn btn-outline-light fw-bold wow fadeInLeft" data-wow-delay="0.4s">Đăng kí</a>
+            </blockquote>
+
+            <div class="col-md-12 col-lg-6 mt-4 mt-md-0 wow fadeInRight" data-wow-delay="0.3s">
+                <img src="https://mdbootstrap.com/img/Others/cards32.png" class="img-fluid">
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="row bg-white p-2 mt-2 rounded-top shadow mb-4 bg-white">
+    <div class="text-center">
+        <h3 class="fw-bold mb-4 pb-2">Danh Mục Thi</h3>
+        <p class="text-muted w-responsive mx-auto mb-5">Chọn phần thi theo bộ muôn bạn đang học.</p>
+    </div>
+    <div class="col">
+        <!-- list courses -->
+        <div class="list-courses">
+            <!-- course -->
+            <div class="col-2 card text-center m-5 p-2 course" style="width: 15rem; float: left;"
+                ng-repeat="subject in subjects | limitTo : 3 : count">
+                <img src="images/logos/{{subject.Logo}}" class="card-img-top course-image" alt="...">
+                <div class="card-body">
+                    <h6 class="card-title">{{subject.Name}}</h6>
+                    <a href="#!startquiz/{{subject.Id}}" class="btn btn-success button">Chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button ng-click="prev()" class="btn btn-primary btn-lg"><i class="fas fa-chevron-circle-left"></i></button>
+        <button ng-click="next()" class="btn btn-primary btn-lg"><i class="fas fa-chevron-circle-right"></i></button>
+    </div>
+</section>

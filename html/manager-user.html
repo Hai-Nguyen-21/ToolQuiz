@@ -1,0 +1,426 @@
+<section>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Thêm tài khoản
+    </button>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">User name</th>
+                <th scope="col">Full name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Birthday</th>
+                <th scope="col">School fee</th>
+                <th scope="col">Role</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in students | limitTo : 5 : count">
+                <th class="th"></th>
+                <td>{{user.username}}</td>
+                <td>{{user.fullname}}</td>
+                <td>{{user.email}}</td>
+                <td>{{(user.gender=='true')?'Nam':'Nữ'}}</td>
+                <td>{{user.birthday}}</td>
+                <td>{{user.schoolfee}}</td>
+                <td>{{(user.role=='true')?'Giáo viên':'Sinh viên'}}</td>
+                <td>
+                    <button class="btn btn-info" ng-click="sendInfo(user.id)" data-bs-toggle="modal" data-bs-target="#exampleModalU">Sửa</button> |
+                    <button class="btn btn-danger" data-bs-toggle="modal" ng-click="sendInfo(user.id)" data-bs-target="#exampleModalD">Xóa</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal add-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" name="formM" ng-init="studentM.gender='true'; studentM.role='true'">
+                        <!-- user name -->
+                        <div class="form-group pb-4">
+                            <label for="username">
+                                <i class="fas fa-user prefix" style="color: crimson;"></i>
+                                User Name: 
+                            </label>
+                            <input class="form-control" 
+                                id="username" 
+                                name="username" 
+                                placeholder="Enter username" 
+                                type="text"
+                                ng-model="studentM.username"
+                                required
+                                minlength="6">
+                            <div ng-hide="formM.username.$valid || formM.username.$untouched || formM.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formM.username.$error.required">
+                                    Vui lòng nhập tên đăng nhập
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formM.username.$error.minlength">
+                                    Tên tài khoản phải nhiều hơn 6 ký tự
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- pass -->
+                        <div class="form-group pb-4">
+                            <label for="password">
+                                <i class="fas fa-lock prefix" style="color: crimson;"></i>
+                                Password:
+                            </label>
+                            <input class="form-control" id="password" name="password" placeholder="Enter password" type="password"
+                                ng-model="studentM.password" required minlength="6">
+                            <div ng-hide="formM.password.$valid || formM.password.$untouched || formM.$submitted">
+                                <small class="form-text text-danger" ng-show="formM.password.$error.required">
+                                    Vui lòng nhập mật khẩu
+                                </small>
+                                <small class="form-text text-danger" ng-show="formM.password.$error.minlength">
+                                    Mật khẩu phải nhiều hơn 6 ký tự
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- fullname -->
+                        <div class="form-group pb-4">
+                            <label for="fullname">
+                                <i class="fas fa-signature prefix" style="color: crimson;"></i>
+                                Full Name: 
+                            </label>
+                            <input class="form-control" 
+                                id="fullname" 
+                                name="fullname" 
+                                placeholder="Enter full name" 
+                                type="text"
+                                ng-model="studentM.fullname"
+                                required
+                                minlength="5">
+                            <div ng-hide="formM.fullname.$valid || formM.fullname.$untouched || formM.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formM.fullname.$error.required">
+                                    Vui lòng nhập họ và tên
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formM.fullname.$error.minlength">
+                                    Họ và tên không được dưới 5 ký tự
+                                </small>
+                            </div>
+                        </div>
+            
+                        <!-- email -->
+                        <div class="form-group pb-4">
+                            <label for="email">
+                                <i class="fas fa-envelope prefix" style="color: crimson;"></i>
+                                Email: 
+                            </label>
+                            <input class="form-control" 
+                                    id="email" 
+                                    name="email" 
+                                    placeholder="Enter email" 
+                                    type="email"
+                                    ng-model="studentM.email"
+                                    required>
+                            <div ng-hide="formM.email.$valid || formM.email.$untouched || formM.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formM.email.$error.required">
+                                    Vui lòng nhập email
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formM.email.$error.email">
+                                    Email không đúng định dạng
+                                </small>
+                            </div>
+                        </div>
+            
+                        <!-- gender -->
+                        <div class="form-group pb-4">
+                            <label for="gender">
+                                <i class="fas fa-transgender prefix" style="color: crimson;"></i>
+                                Gender: 
+                            </label> <br>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentM.gender" type="radio" class="form-check-input" id="gender" name="gender" value="true">
+                                <label class="form-check-label" for="gender">Nam</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentM.gender" type="radio" class="form-check-input" id="gender2" name="gender" value="false">
+                                <label class="form-check-label" for="gender2">Nữ</label>
+                            </div>
+                        </div>
+            
+                        <!-- dob -->
+                        <div class="form-group pb-4">
+                            <i class="fas fa-calendar" style="color: crimson;"></i>
+                            <label for="birthday">Date of birth (yyyy-MM-dd): </label>
+                            <input class="form-control" 
+                                    id="birthday" 
+                                    name="birthday" 
+                                    placeholder="Enter date of birth" 
+                                    type="text"
+                                    ng-model="studentM.birthday"
+                                    required
+                                    pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                            <div ng-hide="formM.birthday.$valid || formM.birthday.$untouched || formM.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formM.birthday.$error.required">
+                                    Vui lòng nhập ngày tháng năm sinh
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formM.birthday.$error.pattern">
+                                    Ngày tháng năm sinh không đúng định dạng
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <!-- school fee -->
+                        <div class="form-group pb-4">
+                            <i class="fas fa-money-bill" style="color: crimson;"></i>
+                            <label for="schoolfee">School fee: </label>
+                            <input class="form-control" 
+                                    id="schoolfee" 
+                                    name="schoolfee" 
+                                    placeholder="Enter school fee" 
+                                    type="number"
+                                    ng-model="studentM.schoolfee"
+                                    required
+                                    min="2000000">
+                            <div ng-hide="formM.schoolfee.$valid || formM.schoolfee.$untouched || formM.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formM.schoolfee.$error.required">
+                                    Vui lòng nhập học phí
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formM.schoolfee.$error.min">
+                                    Học phí phải lớn hơn VND2.000.000
+                                </small>
+                            </div>
+                        </div>
+            
+                        <!-- role -->
+                        <div class="form-group pb-4">
+                            <label for="role">
+                                <i class="fas fa-users" style="color: crimson;"></i>
+                                Role: 
+                            </label> <br>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentM.role" type="radio" class="form-check-input" id="role" name="role" value="true">
+                                <label class="form-check-label" for="role">Giáo viên</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentM.role" type="radio" class="form-check-input" id="role1" name="role" value="false">
+                                <label class="form-check-label" for="role1">Học sinh</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button"ng-disabled="formM.$invalid" ng-click="addUser()" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal update-->
+    <div class="modal fade" id="exampleModalU" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" name="formUp" ng-init="studentU.gender='true'; studentU.role='true'">
+                        <!-- user name -->
+                        <div class="form-group pb-4">
+                            <label for="username">
+                                <i class="fas fa-user prefix" style="color: crimson;"></i>
+                                User Name: 
+                            </label>
+                            <input class="form-control" 
+                                id="usernameU" 
+                                name="username" 
+                                placeholder="Enter username" 
+                                type="text"
+                                ng-model="studentU.username"
+                                required
+                                minlength="6">
+                            <div ng-hide="formUp.username.$valid || formUp.username.$untouched || formUp.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.username.$error.required">
+                                    Vui lòng nhập tên đăng nhập
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.username.$error.minlength">
+                                    Tên tài khoản phải nhiều hơn 6 ký tự
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- fullname -->
+                        <div class="form-group pb-4">
+                            <label for="fullname">
+                                <i class="fas fa-signature prefix" style="color: crimson;"></i>
+                                Full Name: 
+                            </label>
+                            <input class="form-control" 
+                                id="fullnameU" 
+                                name="fullname" 
+                                placeholder="Enter full name" 
+                                type="text"
+                                ng-model="studentU.fullname"
+                                required
+                                minlength="5">
+                            <div ng-hide="formUp.fullname.$valid || formUp.fullname.$untouched || formUp.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.fullname.$error.required">
+                                    Vui lòng nhập họ và tên
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.fullname.$error.minlength">
+                                    Họ và tên không được dưới 5 ký tự
+                                </small>
+                            </div>
+                        </div>
+            
+                        <!-- email -->
+                        <div class="form-group pb-4">
+                            <label for="email">
+                                <i class="fas fa-envelope prefix" style="color: crimson;"></i>
+                                Email: 
+                            </label>
+                            <input class="form-control" 
+                                    id="emailU" 
+                                    name="email" 
+                                    placeholder="Enter email" 
+                                    type="email"
+                                    ng-model="studentU.email"
+                                    required>
+                            <div ng-hide="formUp.email.$valid || formUp.email.$untouched || formUp.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.email.$error.required">
+                                    Vui lòng nhập email
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.email.$error.email">
+                                    Email không đúng định dạng
+                                </small>
+                            </div>
+                        </div>
+            
+                        <!-- gender -->
+                        <div class="form-group pb-4">
+                            <label for="gender">
+                                <i class="fas fa-transgender prefix" style="color: crimson;"></i>
+                                Gender: 
+                            </label> <br>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentU.gender" type="radio" class="form-check-input" id="genderU" name="gender" value="true">
+                                <label class="form-check-label" for="genderU">Nam</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentU.gender" type="radio" class="form-check-input" id="gender2U" name="gender" value="false">
+                                <label class="form-check-label" for="gender2U">Nữ</label>
+                            </div>
+                        </div>
+            
+                        <!-- dob -->
+                        <div class="form-group pb-4">
+                            <i class="fas fa-calendar" style="color: crimson;"></i>
+                            <label for="birthday">Date of birth (yyyy-MM-dd): </label>
+                            <input class="form-control" 
+                                    id="birthdayU" 
+                                    name="birthday" 
+                                    placeholder="Enter date of birth" 
+                                    type="text"
+                                    ng-model="studentU.birthday"
+                                    required
+                                    pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                            <div ng-hide="formUp.birthday.$valid || formUp.birthday.$untouched || formUp.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.birthday.$error.required">
+                                    Vui lòng nhập ngày tháng năm sinh
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.birthday.$error.pattern">
+                                    Ngày tháng năm sinh không đúng định dạng
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <!-- school fee -->
+                        <div class="form-group pb-4">
+                            <i class="fas fa-money-bill" style="color: crimson;"></i>
+                            <label for="schoolfee">School fee: </label>
+                            <input class="form-control" 
+                                    id="schoolfeeU" 
+                                    name="schoolfee" 
+                                    placeholder="Enter school fee" 
+                                    type="number"
+                                    ng-model="studentU.schoolfee"
+                                    required
+                                    min="2000000">
+                            <div ng-hide="formUp.schoolfee.$valid || formUp.schoolfee.$untouched || formUp.$submitted">
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.schoolfee.$error.required">
+                                    Vui lòng nhập học phí
+                                </small>
+                                <small class="form-text text-danger"
+                                        ng-show="formUp.schoolfee.$error.min">
+                                    Học phí phải lớn hơn VND2.000.000
+                                </small>
+                            </div>
+                        </div>
+            
+                        <!-- role -->
+                        <div class="form-group pb-4">
+                            <label for="role">
+                                <i class="fas fa-users" style="color: crimson;"></i>
+                                Role: 
+                            </label> <br>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentU.role" type="radio" class="form-check-input" id="roleU" name="role" value="true">
+                                <label class="form-check-label" for="roleU">Giáo viên</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input ng-model="studentU.role" type="radio" class="form-check-input" id="role1U" name="role" value="false">
+                                <label class="form-check-label" for="role1U">Học sinh</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" ng-disabled="formUp.$invalid" ng-click="update(studentU.id)" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal delete-->
+    <div class="modal fade" id="exampleModalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>Bạn có chắc muốn xóa tài khoản này không?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" ng-click="delete(idD)" data-bs-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
