@@ -16,11 +16,17 @@ app.run(function ($rootScope, $http) {
     $rootScope.apiHistory = 'https://620f85ecec8b2ee28342f9ea.mockapi.io/api/polyquiz/historys';
     $rootScope.histories = [];
     
+    $rootScope.apiMail = 'https://620f85ecec8b2ee28342f9ea.mockapi.io/api/polyquiz/mail';
+    $http.get($rootScope.apiMail).then(function(response){
+        $rootScope.mails = eval(response.data);
+    })
 
     $rootScope.student = null;
     $rootScope.st = false;
 
     $rootScope.flag = true;
+
+    
 
     $rootScope.logout = function () {
         $rootScope.student = null;
@@ -67,7 +73,8 @@ app.config(function ($routeProvider) {
         .when(
             '/feedback',
             {
-                templateUrl: 'html/feedback.html'
+                templateUrl: 'html/feedback.html',
+                controller: 'feedbackController'
             }
         )
         .when(
@@ -123,6 +130,13 @@ app.config(function ($routeProvider) {
             {
                 templateUrl: 'html/manager-user.html',
                 controller: 'managerController'
+            }
+        )
+        .when(
+            '/manager-feedback',
+            {
+                templateUrl: 'html/manager-feedback.html',
+                controller: 'managerfeedbackController'
             }
         )
         .otherwise({ redirectTo: "/index" });

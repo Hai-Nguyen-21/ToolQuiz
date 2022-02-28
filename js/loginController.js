@@ -17,6 +17,7 @@ app.controller('loginController', function($scope, $rootScope){
                         });
                         $rootScope.indexStudent = student.index;
                         $rootScope.student = student;
+                        //saveLocal($rootScope.student.username, $rootScope.student.password);
                         window.location.href = '#!index';
                         check = false;
                         $rootScope.flag = true;
@@ -34,6 +35,7 @@ app.controller('loginController', function($scope, $rootScope){
                         });
                         $rootScope.indexStudent = student.index;
                         $rootScope.student = student;
+                        //saveLocal($rootScope.student.username, $rootScope.student.password);
                         window.location.href = '#!manager-user';
                         check = false;
                         $rootScope.flag = false;
@@ -52,4 +54,9 @@ app.controller('loginController', function($scope, $rootScope){
             })
         }
     }
+
+    // function saveLocal(username, password){
+    //     localStorage.setItem('username', username);
+    //     localStorage.setItem('password', password);
+    // }
 })

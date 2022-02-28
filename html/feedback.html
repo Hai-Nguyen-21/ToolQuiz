@@ -9,38 +9,54 @@
             <h3 class="font-weight-bold my-4">Phản hồi</h3>
             <p class="font-weight-light mx-auto mb-4 pb-2">Hãy phản hồi vấn đề bạn gặp phải với chúng tôi</p>
 
-            <form class="mb-4 mx-md-5" action="">
+            <form class="mb-4 mx-md-5" method="post" name="formFB">
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
+                        <input type="text" id="fullname" name="fullname" minlength="5" ng-model="feedback.fullname" class="form-control" placeholder="Full Name" required>
 
-                        <input type="text" id="name" class="form-control" placeholder="Name">
-
+                        <div ng-hide="formFB.fullname.$valid || formFB.fullname.$untouched || formFB.$submitted">
+                            <small class="form-text text-danger"
+                                    ng-show="formFB.fullname.$error.required">
+                                Vui lòng nhập tên đăng nhập
+                            </small>
+                            <small class="form-text text-danger"
+                                    ng-show="formFB.fullname.$error.minlength">
+                                Tên tài khoản phải nhiều hơn 5 ký tự
+                            </small>
+                        </div>
                     </div>
+                    
                     <div class="col-md-6 mb-4">
+                        <input type="email" id="email" name="email" class="form-control" ng-model="feedback.email" placeholder="Email" required>
 
-                        <input type="email" id="email" class="form-control" placeholder="Email">
-
+                        <div ng-hide="formFB.email.$valid || formFB.email.$untouched || formFB.$submitted">
+                            <small class="form-text text-danger"
+                                    ng-show="formFB.email.$error.required">
+                                Vui lòng nhập email
+                            </small>
+                            <small class="form-text text-danger"
+                                    ng-show="formFB.email.$error.email">
+                                Email không đúng định dạng
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12 mb-4">
-
-                        <input type="text" id="subject" class="form-control" placeholder="Subject">
-
+                        <input type="text" id="subject" name="subject" ng-model="feedback.subject" class="form-control" placeholder="Subject" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-12">
-
                         <div class="form-group mb-4">
-                            <textarea class="form-control rounded" id="message" rows="3" placeholder="How can we help?"></textarea>
+                            <textarea class="form-control rounded" name="note" ng-model="feedback.note" id="message" rows="3" placeholder="How can we help?"></textarea>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-info btn-md">Phản hồi</button>
+                            <button ng-click="send()" ng-disabled="formFB.$invalid" class="btn btn-info btn-md">Phản hồi</button>
                         </div>
 
                     </div>

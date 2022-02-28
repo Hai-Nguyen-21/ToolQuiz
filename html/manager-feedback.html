@@ -1,0 +1,56 @@
+<section class="text-center dark-grey-text mb-5">
+
+    <div class="card">
+        <div class="card-body rounded-top p-5" style="
+        border-top: 5px solid #33b5e5 !important;
+        border-top-left-radius: .25rem!important;
+        border-top-right-radius: .25rem!important;">
+    
+            <h3 class="font-weight-bold my-4">Phản hồi</h3>
+            <p class="font-weight-light mx-auto mb-4 pb-2">Tất cả phản hồi ngày hôm nay, hãy giải quyết!</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Ngày gửi</th>
+                        <th scope="col">Người gửi</th>
+                        <th scope="col">Tên môn</th>
+                        <th scope="col">Nội dung</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mail in mails">
+                        <th scope="row">{{mail.time}}</th>
+                        <td>{{mail.fullname}}</td>
+                        <td>{{mail.subject}}</td>
+                        <td>
+                            <button ng-show="mail.status" class="btn btn-info" ng-click="sendInfo(mail.id)" data-bs-toggle="modal" data-bs-target="#exampleModal">Chi tiết</button>
+                            <button ng-show="!mail.status" class="btn btn-secondary" disabled>Đã đọc</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Người gửi: {{fn}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Tên môn học: {{subject}}</h6>
+                    <h5>Nội dung: {{note}}</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="read(mailR.id)" data-bs-dismiss="modal">Đã đọc</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
